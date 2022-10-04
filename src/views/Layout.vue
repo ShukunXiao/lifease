@@ -38,7 +38,6 @@ export default {
 
 <style scoped lang='less'>
   main{
-    height: 1300px
   }
 
 </style>
