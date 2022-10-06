@@ -74,6 +74,8 @@
    text-overflow: ellipsis;
    overflow: hidden;
  }
+//  单行
+//  双行
  
  .ellipsis-2 {
    word-break: break-all;
@@ -100,3 +102,18 @@
    line-height: 0;
    clear: both;
  }
+
+ // 淡出动画
+ .fadeOut{
+  &-leave {
+    &-active {
+      position: absolute;
+      width: 100%;
+      transition: opacity .5s .2s;
+      z-index: 1;
+    }
+    &-to {
+      opacity: 0;
+    }
+  }
+}

@@ -1,6 +1,6 @@
 <template>
-  <HomePanel title="人气推荐" sub-title="人气爆款 不容错过">
-    <ul ref="pannel" class="goods-list">
+  <HomePanel ref="target" title="人气推荐" sub-title="人气爆款 不容错过">
+    <ul v-if='goods.length' ref="pannel" class="goods-list">
       <li v-for="item in goods" :key="item.id">
         <RouterLink to="/">
           <img :src="item.picture" alt="">
@@ -9,6 +9,7 @@
         </RouterLink>
       </li>
     </ul>
+    <goodSkeleton v-else > </goodSkeleton>
   </HomePanel>
 </template>
 
@@ -16,15 +17,20 @@
 import { ref } from 'vue'
 import HomePanel from './goods-panel'
 import { findHot } from '@/api/getCategory'
+import goodSkeleton from './goods-skeleton.vue'
+import { lazyLoading } from '@/hooks/lazyLoad'
 export default {
   name: 'HomeNew',
-  components: { HomePanel },
+  components: { HomePanel, goodSkeleton },
   setup () {
-    const goods = ref([])
-    findHot().then(data => {
-      goods.value = data.result
-    })
-    return { goods }
+    const target = ref(null)
+    // const goods = ref([])
+    const goods = lazyLoading(target, findHot)
+    console.log(goods)
+    // findHot().then(data => {
+    //   goods.value = data.result
+    // })
+    return { goods, target }
   }
 }
 </script>
