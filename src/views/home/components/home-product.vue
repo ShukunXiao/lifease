@@ -33,7 +33,6 @@ export default {
   setup () {
     const target = ref(null)
     const result = lazyLoading(target, findGoods)
-    console.log('res', result)
     return { target, list: result }
   }
 }

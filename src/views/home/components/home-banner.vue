@@ -12,7 +12,6 @@ export default {
     const CarouselData = ref([])
     findBanner().then((data) => {
       CarouselData.value = data.result
-      console.log(data)
     })
     return { CarouselData }
   }

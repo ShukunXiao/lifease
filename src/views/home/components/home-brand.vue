@@ -43,7 +43,6 @@ export default {
     const pagechange = ref(0)
     watch(page, (newpage, old) => {
       pagechange.value = 1 - newpage // 第一页为参照物 改变translateX
-      console.log(newpage, pagechange.value, brandList)
     })
     return { brandList, page, next, previous, pagechange }
   }

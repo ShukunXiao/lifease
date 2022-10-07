@@ -17,7 +17,6 @@ export const lazyLoading = (target, request) => {
       if (isIntersecting) {
         stop()
         request().then(data => {
-          console.log(12, data)
           result.value = data.result
         })
       }

@@ -26,7 +26,6 @@ export default {
     const target = ref(null)
     // const goods = ref([])
     const goods = lazyLoading(target, findHot)
-    console.log(goods)
     // findHot().then(data => {
     //   goods.value = data.result
     // })

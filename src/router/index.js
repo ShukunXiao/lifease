@@ -3,7 +3,6 @@ import TopCategory from '@/views/category'
 import SubCategory from '@/views/category/subcategory'
 const Layout = () => import('@/views/Layout')
 const Home = () => import('@/views/home/index')
-
 const routes = [
   {
     path: '/',
