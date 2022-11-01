@@ -3,6 +3,7 @@
 // import carousel from './xtx-carousel'
 // import XtxMore from './xtx-more.vue'
 import defaultImg from '@/assets/images/200.png'
+import Message from './Message'
 // import XtxBread from './xtx-bread'
 // import XtxBreadItem from './xtx-bread-item'
 // 导入library文件夹下的所有组件
@@ -24,6 +25,7 @@ export default {
     // app.component(XtxBread.name, XtxBread)
     // app.component(XtxBreadItem.name, XtxBreadItem)
     app.directive('lazy', lazyloadDerect)
+    app.config.globalProperties.$message = Message// 原型函数挂载￥message
   }
 }
 const lazyloadDerect = {

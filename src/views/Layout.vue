@@ -7,7 +7,6 @@
   </main>
   <AppFooter></AppFooter>
   <AppHeaderSticky></AppHeaderSticky>
-
 </template>
 
 <script>

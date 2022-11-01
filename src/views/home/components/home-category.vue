@@ -1,7 +1,7 @@
 <template>
   <div class='home-category' @mouseleave="currentCateId=null" >
     <ul class="menu" >
-      <li :class="{active:currentCateId === item.id}" v-for="item in categoryList" :key="item.id" @mouseenter="currentCateId = item.id" >
+      <li :class="{active:currentCateId === item.id && categoryList.item}" v-for="item in categoryList" :key="item.id" @mousemove="currentCateId = item.id" >
         <RouterLink :to="`/category/${item.id}`">{{item.name}}</RouterLink>
         <template v-if="item.children">
           <RouterLink

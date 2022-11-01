@@ -7,7 +7,7 @@ const JSONBig = require('json-bigint')({ storeAsString: true })
 // 3. 响应拦截器：1. 剥离无效数据  2. 处理token失效
 // 4. 导出一个函数，调用当前的axsio实例发请求，返回值promise
 
-export const baseURL = 'http://pcapi-xiaotuxian-front-devtest.itheima.net/'
+export const baseURL = 'https://apipc-xiaotuxian-front.itheima.net/'
 const instance = axios.create({
   baseURL,
   timeout: 5000,
