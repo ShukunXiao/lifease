@@ -1,6 +1,9 @@
-
 const path = require('path')
+
 module.exports = {
+  devServer: {
+    allowedHosts: 'auto'
+  },
   pluginOptions: {
     'style-resources-loader': {
       preProcessor: 'less',
@@ -10,6 +13,11 @@ module.exports = {
         path.join(__dirname, './src/assets/styles/variables.less'),
         path.join(__dirname, './src/assets/styles/mixins.less')
       ]
+    }
+  },
+  configureWebpack: {
+    externals: {
+      qc: 'QC'
     }
   }
 }

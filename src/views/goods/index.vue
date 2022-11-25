@@ -18,7 +18,7 @@
           <GoodsName :goods="goods"/>
           <GoodsSku :goods='goods' @change='changeSku'/>
           <XtxNumbox label="数量" v-model:goodnum="num" :max="goods.inventory"/>
-          <XtxButton type="primary" style="margin-top:20px;">加入购物车</XtxButton>
+          <XtxButton @click='insertcart()' type="primary" style="margin-top:20px;">加入购物车</XtxButton>
         </div>
       </div>
       <!-- 商品推荐 -->
@@ -46,7 +46,8 @@
 
 <script>
 import GoodsRelevant from './components/goods-relevant'
-import { nextTick, ref, watch, provide } from 'vue'
+import { nextTick, ref, watch, provide, getCurrentInstance } from 'vue'
+import { useStore } from 'vuex'
 import { findGoods } from '@/api/product'
 import { useRoute } from 'vue-router'
 import goodsImage from './components/goods-image'
@@ -64,17 +65,43 @@ export default {
     const goods = useGoods()
     provide('goods', goods)
     // sku改变时候触发
+    const currSku = ref(null)
     const changeSku = (sku) => {
-      if (sku.skuId) {
+      if (sku.skuId) { // 规格齐全
         goods.value.price = sku.price
         goods.value.oldPrice = sku.oldPrice
         goods.value.inventory = sku.inventory
         console.log(sku)
+        currSku.value = sku
+      } else {
+        currSku.value = null
       }
     }
+    const instance = getCurrentInstance()
     const num = ref(1)
-
-    return { goods, changeSku, num }
+    const store = useStore()
+    const insertcart = () => {
+      if (!currSku.value) {
+        return instance.proxy.$message('请选择商品规格')
+      }
+      if (num.value > goods.inventory) {
+        return instance.proxy.$message('库存不足')
+      }
+      store.dispatch('cart/insertCart', {
+        id: goods.value.id,
+        skuId: currSku.value.skuId,
+        name: goods.value.name,
+        picture: goods.value.mainPictures[0],
+        price: currSku.value.price,
+        nowPrice: currSku.value.price,
+        count: num.value,
+        attrsText: currSku.value.specsText,
+        selected: true,
+        isEffective: true,
+        stock: currSku.value.inventory
+      }).then(() => { instance.proxy.$message('加入购物车成功', 'success') })
+    }
+    return { goods, changeSku, num, insertcart }
   }
 }
 // 获取商品详情
@@ -86,13 +113,14 @@ const useGoods = () => {
     if (newVal && `/product/${newVal}` === route.path) {
       findGoods(route.params.id).then(data => {
         // 让商品数据为null让后使用v-if的组件可以重新销毁和创建
+        goods.value = null
         nextTick(() => {
           data.result.skus.pop()
           data.result.skus.pop()
           data.result.skus.pop()
           data.result.skus.pop()
           data.result.skus.pop()
-          goods.value = null
+
           goods.value = data.result
         })
       })

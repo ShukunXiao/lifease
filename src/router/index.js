@@ -4,6 +4,9 @@ import SubCategory from '@/views/category/subcategory'
 const Layout = () => import('@/views/Layout')
 const Home = () => import('@/views/home/index')
 const Goods = () => import('@/views/goods/index')
+const Login = () => import('@/views/login/index')
+const LoginCallback = () => import('@/views/login/callback')
+const cart = () => import('@/views/cart/index')
 const routes = [
   {
     path: '/',
@@ -15,8 +18,11 @@ const routes = [
       },
       { path: '/category/:id', component: TopCategory, props: true },
       { path: '/category/sub/:id', component: SubCategory },
-      { path: '/product/:id', component: Goods }]
-  }
+      { path: '/product/:id', component: Goods },
+      { path: '/cart', component: cart }]
+  },
+  { path: '/login', component: Login },
+  { path: '/login/callback', component: LoginCallback }
 ]
 
 const router = createRouter({

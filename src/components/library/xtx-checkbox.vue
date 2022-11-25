@@ -12,12 +12,12 @@ export default {
   props: {
     modelValue: {
       type: Boolean,
-      default: false
+      default: true
     }
   },
   // 通知父组件数据改变 v-model绑定属性
   setup (props, { emit }) {
-    const checked = ref(false)
+    const checked = ref(true)
     const changeChecked = () => {
       checked.value = !checked.value
       emit('update:modelValue', checked.value)

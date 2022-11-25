@@ -23,7 +23,6 @@ const useRelGoodsData = (id) => {
       sliders.value.push(data.result.slice(i * size, (i + 1) * size))
     }
   })
-  console.log(sliders.value)
   return sliders
 }
 export default {

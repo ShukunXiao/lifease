@@ -1,6 +1,6 @@
 <template>
   <Transition name="down">
-    <div class='xtx-message' :style="style" v-show="visible">
+    <div class='xtx-message' :style="style[type]" v-show="visible">
       <!-- 上面绑定的是样式 -->
       <!-- 不同提示图标会变 -->
       <i class="iconfont" :class="[style[type].icon]"></i>
